@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Seva Cyber Cafe | Amit Kumar Rajak</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary-color: #007bff; /* Bright Blue like your screenshot */
+            --secondary-color: #0056b3; /* Darker Blue */
+            --accent-color: #ffd32a;    /* Yellow for highlights */
+            --dark-bg: #2d3436;
+            --light-bg: #f8f9fa;
+            --text-color: #333;
+            --white: #ffffff;
+            --card-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .logo span { color: var(--accent-color); }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover { color: var(--accent-color); }
+
+        /* Mobile Menu Button */
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(0,123,255,0.8), rgba(0,86,179,0.9)), url('https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 20px;
+        }
+
+        .hero h2 { font-size: 3rem; margin-bottom: 15px; text-transform: uppercase; }
+        .hero p { font-size: 1.2rem; margin-bottom: 25px; opacity: 0.9; }
+
+        .btn {
+            background: var(--accent-color);
+            color: #333;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .btn:hover { background: #ffc000; transform: scale(1.05); }
+
+        /* --- Search Bar --- */
+        .search-container {
+            margin: -30px auto 40px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            z-index: 10;
+        }
+
+        #serviceSearch {
+            width: 100%;
+            padding: 18px;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            font-size: 1rem;
+            text-align: center;
+            outline: none;
+        }
+        #serviceSearch:focus { border: 2px solid var(--primary-color); }
+
+        /* --- Services Grid --- */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 50px 0 30px;
+            font-size: 2.2rem;
+            color: var(--secondary-color);
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 35px 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: 0.3s;
+            border-bottom: 4px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-bottom: 4px solid var(--primary-color);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            color: #00a8ff; /* Light blue icon */
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 { font-size: 1.25rem; margin-bottom: 10px; color: #2d3436; }
+        .service-card p { font-size: 0.9rem; color: #636e72; }
+
+        /* --- Government Schemes Section (Table Style) --- */
+        .schemes-section {
+            background: var(--white);
+            padding: 50px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .schemes-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .scheme-item {
+            background: #f1f2f6;
+            padding: 15px 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid var(--primary-color);
+            transition: 0.2s;
+        }
+        .scheme-item:hover { background: #e2e4ea; }
+
+        .scheme-text h4 { margin: 0; font-size: 1.05rem; color: #2d3436; }
+        .scheme-text span { font-size: 0.8rem; color: #636e72; }
+
+        .scheme-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        /* --- Owner Section --- */
+        .owner-section {
+            background: var(--dark-bg);
+            color: white;
+            padding: 70px 0;
+            margin-top: 40px;
+        }
+
+        .owner-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .owner-img-box {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: 5px solid var(--primary-color);
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .owner-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .owner-details h2 { font-size: 2.5rem; color: var(--accent-color); margin-bottom: 5px; }
+        .owner-details .role { color: #b2bec3; font-size: 1.2rem; margin-bottom: 25px; display: block;}
+
+        .contact-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .contact-row i { width: 30px; color: var(--accent-color); }
+        .contact-row a { color: white; text-decoration: none; border-bottom: 1px dotted #777; transition: 0.3s; }
+        .contact-row a:hover { color: var(--accent-color); border-bottom: 1px solid var(--accent-color); }
+
+        /* --- Footer --- */
+        footer {
+            background: #1e272e;
+            color: #7f8c8d;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .menu-toggle { display: block; }
+            .hero h2 { font-size: 2rem; }
+            .owner-content { flex-direction: column; text-align: center; }
+            .contact-row { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>As <span>Cyber Cafe</span></h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#schemes">Schemes</a></li>
+                <li><a href="#owner">Contact Owner</a></li>
+            </ul>
+            <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div>
+            <h2>Amit Kumar Rajak Cyber Cafe</h2>
+            <p>Complete Online Solutions: Banking, Forms, Printing & More.</p>
+            <a href="#services" class="btn">Explore Services</a>
+        </div>
+    </section>
+
+    <div class="search-container">
+        <input type="text" id="serviceSearch" placeholder="Search here... (e.g., Passport, Pan Card, Resume)" onkeyup="filterServices()">
+    </div>
+
+    <div class="container" id="services">
+        <h2 class="section-title">Our Services</h2>
+        <div class="services-grid">
+            
+            <div class="service-card" data-name="passport seva visa">
+                <i class="fas fa-passport"></i>
+                <h3>Passport Seva</h3>
+                <p>New Application, Renewal & Police Clearance.</p>
+            </div>
+
+            <div class="service-card" data-name="pan card aadhar update">
+                <i class="fas fa-id-card"></i>
+                <h3>PAN & Aadhar</h3>
+                <p>New Apply, Correction, PVC Print & Linking.</p>
+            </div>
+
+            <div class="service-card" data-name="job forms vacancy ssc railway">
+                <i class="fas fa-briefcase"></i>
+                <h3>Online Job Forms</h3>
+                <p>SSC, Railway, Banking, Police & Admit Cards.</p>
+            </div>
+
+            <div class="service-card" data-name="print xerox copy lamination photo">
+                <i class="fas fa-print"></i>
+                <h3>Print & Xerox</h3>
+                <p>Color/BW Print, Lamination & Passport Photos.</p>
+            </div>
+
+            <div class="service-card" data-name="money transfer aeps cash withdrawal">
+                <i class="fas fa-rupee-sign"></i>
+                <h3>Money Transfer</h3>
+                <p>Send Money to any Bank & Cash Withdrawal.</p>
+            </div>
+
+            <div class="service-card" data-name="scholarship student college admission">
+                <i class="fas fa-user-graduate"></i>
+                <h3>Student Scholarship</h3>
+                <p>Bihar Scholarship, NSP & College Forms.</p>
+            </div>
+
+            <div class="service-card" data-name="ticket train flight booking">
+                <i class="fas fa-train"></i>
+                <h3>Ticket Booking</h3>
+                <p>Confirmed Train (IRCTC) & Flight Tickets.</p>
+            </div>
+
+            <div class="service-card" data-name="resume cv biodata typing">
+                <i class="fas fa-file-alt"></i>
+                <h3>Resume Making</h3>
+                <p>Professional CV/Bio-data & Hindi/English Typing.</p>
+            </div>
+
+             <div class="service-card" data-name="bill electricity recharge fastag">
+                <i class="fas fa-bolt"></i>
+                <h3>Bill Payments</h3>
+                <p>Electricity Bill, Mobile Recharge & DTH.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <section class="schemes-section" id="schemes">
+        <div class="container">
+            <h2 class="section-title">Government Schemes & Links</h2>
+            <div class="schemes-list">
+                
+                <div class="scheme-item">
+                    <div class="scheme-text">
+                        <h4>PM Kisan Samman Nidhi</h4>
+                        <span>Farmer KYC & Status</span>
+                    </div>
+                    <a href="https://pmkisan.gov.in/" target="_blank" class="scheme-btn">Visit</a>
+                </div>
+
+                <div class="scheme-item">
+                    <div class="scheme-text">
+                        <h4>Ration Card Services</h4>
+                        <span>Apply New & Add Names</span>
+                    </div>
+                    <a href="http://epds.bihar.gov.in/" target="_blank" class="scheme-btn">Visit</a>
+                </div>
+
+                <div class="scheme-item">
+                    <div class="scheme-text">
+                        <h4>RTPS (Caste/Income/Res)</h4>
+                        <span>Apply Certificate</span>
+                    </div>
+                    <a href="https://serviceonline.bihar.gov.in/" target="_blank" class="scheme-btn">Visit</a>
+                </div>
+
+                <div class="scheme-item">
+                    <div class="scheme-text">
+                        <h4>Birth & Death Certificate</h4>
+                        <span>Apply & Download</span>
+                    </div>
+                    <a href="https://crsorgi.gov.in/" target="_blank" class="scheme-btn">Visit</a>
+                </div>
+
+                <div class="scheme-item">
+                    <div class="scheme-text">
+                        <h4>Ayushman Bharat Card</h4>
+                        <span>Health Insurance Card</span>
+                    </div>
+                    <a href="https://pmjay.gov.in/" target="_blank" class="scheme-btn">Visit</a>
+                </div>
+
+                <div class="scheme-item">
+                    <div class="scheme-text">
+                        <h4>Udyam Registration</h4>
+                        <span>MSME Business License</span>
+                    </div>
+                    <a href="https://udyamregistration.gov.in/" target="_blank" class="scheme-btn">Visit</a>
+                </div>
+
+                <div class="scheme-item">
+                    <div class="scheme-text">
+                        <h4>Voter ID Portal (NVSP)</h4>
+                        <span>New Voter ID Card</span>
+                    </div>
+                    <a href="https://voters.eci.gov.in/" target="_blank" class="scheme-btn">Visit</a>
+                </div>
+
+                <div class="scheme-item">
+                    <div class="scheme-text">
+                        <h4>Jeevan Pramaan</h4>
+                        <span>Life Certificate</span>
+                    </div>
+                    <a href="https://jeevanpramaan.gov.in/" target="_blank" class="scheme-btn">Visit</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="owner-section" id="owner">
+        <div class="container">
+            <div class="owner-content">
+                
+                <div class="owner-img-box">
+                    <img src="owner.png" alt="Amit Kumar Rajak" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+                </div>
+
+                <div class="owner-details">
+                    <h2>Amit Kumar Rajak</h2>
+                    <span class="role">Owner & BCA Student</span>
+                    
+                    <div class="contact-row">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>BCA (Bachelor of Computer Applications)</span>
+                    </div>
+                    
+                    <div class="contact-row">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:+919113787665">+91 91137 87665</a>
+                    </div>
+                    
+                    <div class="contact-row">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:amitkumarrajakbrab12@gmail.com">amitkumarrajakbrab12@gmail.com</a>
+                    </div>
+
+                    <div style="margin-top: 25px;">
+                        <a href="tel:+919113787665" class="btn"><i class="fas fa-phone"></i> Call Now</a>
+                        <a href="https://wa.me/919113787665" class="btn" style="background:#25D366; color:white; margin-left:10px;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Amit Kumar Rajak. All Rights Reserved.</p>
+        <p>Providing Best Cyber Cafe Services.</p>
+    </footer>
+
+    <script>
+        // 1. Search Filter Logic
+        function filterServices() {
+            let input = document.getElementById('serviceSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('service-card');
+            
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+                let tags = cards[i].getAttribute('data-name');
+                
+                if (title.includes(input) || tags.includes(input)) {
+                    cards[i].style.display = "block";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        // 2. Mobile Menu Toggle
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            const nav = document.querySelector('nav ul');
+            if(nav.style.display === 'flex') {
+                nav.style.display = 'none';
+            } else {
+                nav.style.display = 'flex';
+                nav.style.flexDirection = 'column';
+                nav.style.position = 'absolute';
+                nav.style.top = '60px';
+                nav.style.right = '0';
+                nav.style.width = '100%';
+                nav.style.background = '#007bff';
+                nav.style.padding = '20px';
+                nav.style.textAlign = 'center';
+            }
+        });
+    </script>
+</body>
+</html>
